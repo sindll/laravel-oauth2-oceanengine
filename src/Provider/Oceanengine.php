@@ -4,12 +4,10 @@ namespace Sindll\OAuth2\Client\Provider;
 
 use UnexpectedValueException;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\AbstractProvider;
-use League\OAuth2\Client\Provider\GenericResourceOwner;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\QueryBuilderTrait;
 use League\OAuth2\Client\Grant\GrantFactory;
@@ -116,14 +114,13 @@ class Oceanengine extends AbstractProvider
         if ($grant->__toString() == 'refresh_token') {
             $request  = $this->getRefreshTokenRequest($params);
         }
-
         $response = $this->getParsedResponse($request);
         if (false === is_array($response)) {
             throw new UnexpectedValueException(
                 'Invalid response received from Authorization Server. Expected JSON.'
             );
         }
-        $prepared = $this->prepareAccessTokenResponse($response['data']);
+        $prepared = $this->prepareAccessTokenResponse($response);
         $token    = $this->createAccessToken($prepared, $grant);
 
         return $token;
@@ -167,8 +164,7 @@ class Oceanengine extends AbstractProvider
      */
     protected function checkResponse(ResponseInterface $response, $data)
     {
-        Log::info('Response data: ', $data);
-
+        var_dump($data);exit();
         if ($data['code'] != 0) {
             $code  = $data['code'];
             $error = $data['message'];
@@ -181,7 +177,7 @@ class Oceanengine extends AbstractProvider
      */
     protected function createResourceOwner(array $response, AccessToken $token)
     {
-        return new GenericResourceOwner($response['data'], 'id');
+
     }
 
     /**
