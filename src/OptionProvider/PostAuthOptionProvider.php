@@ -15,7 +15,7 @@ class PostAuthOptionProvider implements OptionProviderInterface
      */
     public function getAccessTokenOptions($method, array $params)
     {
-        $options = ['headers' => ['content-type' => 'application/json']];
+        // $options = ['headers' => ['content-type' => 'application/json']];
 
         if ($method === AbstractProvider::METHOD_POST) {
             $options['body'] = $this->getAccessTokenBody($params);
