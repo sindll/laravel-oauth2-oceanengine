@@ -14,7 +14,7 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\QueryBuilderTrait;
 use League\OAuth2\Client\Grant\GrantFactory;
 use Sindll\OAuth2\Client\Grant\AuthCode;
-use Sindll\OAuth2\Client\optionProvider\PostAuthOptionProvider;
+use Sindll\OAuth2\Client\OptionProvider\PostAuthOptionProvider;
 
 class Oceanengine extends AbstractProvider
 {
